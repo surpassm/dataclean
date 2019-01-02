@@ -21,8 +21,9 @@ spring:
 logging:
   level:
     com.liaoin.dataclean: trace
-
 swagger:
   enabled: true
   title: 数据清洗
   base-package: com.liaoin.dataclean.controller
+server:
+  port: 8081

@@ -39,6 +39,7 @@ public class Building {
     private String name;
     @ApiModelProperty("来源")
     private String sources;
+	@Lob
     @ApiModelProperty("网站")
     private String website;
     @ApiModelProperty("建筑类型")
