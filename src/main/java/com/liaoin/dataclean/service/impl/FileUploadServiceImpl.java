@@ -1,6 +1,7 @@
 package com.liaoin.dataclean.service.impl;
 
 import com.liaoin.dataclean.entity.Building;
+import com.liaoin.dataclean.enums.BuildingIdentification;
 import com.liaoin.dataclean.repository.BuildingRepository;
 import com.liaoin.dataclean.service.FileUploadService;
 import com.liaoin.dataclean.common.Result;
@@ -34,7 +35,8 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     @Override
     public Workbook getTemplate() {
-        // 创建工作簿
+
+		// 创建工作簿
         Workbook workbook = new HSSFWorkbook();
         // 创建工作表
         Sheet sheet = workbook.createSheet("Sheet0");
@@ -75,6 +77,8 @@ public class FileUploadServiceImpl implements FileUploadService {
         Cell cell6 = headRow.createCell(6);
         cell6.setCellStyle(cellStyle);
         cell6.setCellValue("计划受领人");
+
+		List<Building> all = buildingRepository.findAll();
         // 创建内容行
         Row contentRow = sheet.createRow(1);
         contentRow.createCell(0).setCellValue("填写业务相关");
@@ -96,7 +100,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 
 
     @Override
-    public Result importTemplate(InputStream inputStream, Integer distance, Integer degree) {
+    public Result importTemplate(InputStream inputStream, Integer distance, Integer degree,Integer repeat) {
         List<Building> buildings = new ArrayList<>();
         try {
             Workbook workbook = WorkbookFactory.create(inputStream);
@@ -213,8 +217,11 @@ public class FileUploadServiceImpl implements FileUploadService {
                 }
                 float similarityRatio = EditorDistanceUtil.getSimilarityRatio(buildings.get(i).getName(), buildings.get(j).getName()) * 100;
                 if (degree < similarityRatio) {
-                    buildings.remove(j);
-                }
+//                    buildings.remove(j);
+					buildings.get(j).setIdentification(BuildingIdentification.REPEAT_DATA);
+                }else {
+					buildings.get(j).setIdentification(BuildingIdentification.RETAIN_DATA);
+				}
             }
         }
         //楼盘距离控制

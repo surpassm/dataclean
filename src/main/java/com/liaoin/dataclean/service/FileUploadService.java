@@ -25,5 +25,5 @@ public interface FileUploadService {
      * @param inputStream 数据IO
      * @return Result
      */
-    Result importTemplate(InputStream inputStream, Integer distance, Integer degree);
+    Result importTemplate(InputStream inputStream, Integer distance, Integer degree,Integer repeat);
 }

@@ -1,5 +1,6 @@
 package com.liaoin.dataclean.entity;
 
+import com.liaoin.dataclean.enums.BuildingIdentification;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class Building {
     private String city;
     @ApiModelProperty("行政区")
     private String area;
+	@Lob
     @ApiModelProperty("地址")
     private String address;
     @ApiModelProperty("名称")
@@ -80,7 +82,6 @@ public class Building {
     private String educationMatching;
     @ApiModelProperty("产权类型")
     private String ownershipType;
-
     @ApiModelProperty("建筑年代")
     private String time;
 
@@ -88,5 +89,9 @@ public class Building {
     private Double lon;
     @ApiModelProperty("纬度")
     private Double lat;
+	@ApiModelProperty("标识")
+	private BuildingIdentification identification;
+
+
 
 }

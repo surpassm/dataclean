@@ -48,9 +48,10 @@ public class FileUploadController {
     @ApiOperation(value = "导入楼盘数据")
     public Result importTemplate(@RequestParam MultipartFile file,
                                  @ApiParam(value = "经纬度相差距离单位：米 栗子：小于这个值会被删除",required = true) @RequestParam Integer distance,
-                                 @ApiParam(value = "相似度 栗子：大于这个值会被删除",required = true)@RequestParam Integer degree) {
+                                 @ApiParam(value = "相似度 栗子：大于这个值会被标记1",required = true)@RequestParam Integer degree,
+                                 @ApiParam(value = "重复度 栗子：大于这个值会被标记0",required = true)@RequestParam Integer repeat) {
         try {
-            return fileUploadService.importTemplate(file.getInputStream(),distance,degree);
+            return fileUploadService.importTemplate(file.getInputStream(),distance,degree,repeat);
         } catch (IOException e) {
             e.printStackTrace();
             return Result.fail("导入文件异常，无法完成解析");
