@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -29,6 +30,7 @@ import static com.liaoin.dataclean.common.Result.ok;
  */
 @Slf4j
 @Service
+@Transactional(rollbackFor = RuntimeException.class)
 public class FileUploadServiceImpl implements FileUploadService {
     @Resource
     private BuildingRepository buildingRepository;
